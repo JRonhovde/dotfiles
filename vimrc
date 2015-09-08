@@ -88,6 +88,8 @@ let b:match_ignorecase=1 "matchit.vim ignores case
 ":ab #b /****************************************
 ":ab #e *****************************************/
 
+" force .tab to use php syntax highlighting
+au BufRead,BufNewFile *.tab set filetype=php
 
 "visually select blocks of text
 onoremap <silent>ai :<C-U>cal <SID>IndTxtObj(0)<CR>

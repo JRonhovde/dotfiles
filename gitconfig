@@ -1,0 +1,19 @@
+[user]
+	email = jronhovde90@gmail.com
+	name = JRonhovde
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[color]
+    diff = auto
+[color "diff"]
+    meta = yellow bold
+    frag = magenta bold
+    old = red
+    new = cyan
+[branch]
+	autosetupmerge = always
+[push]
+	default = current

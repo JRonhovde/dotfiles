@@ -5,6 +5,7 @@ if [ -f ~/.bashrc ]; then
     . ~/.bashrc
 fi
 
+set -o vi
 # User specific environment and startup programs
 
 PATH=$PATH:$HOME/bin
@@ -106,7 +107,7 @@ fcount(){
 
 # Trim trailing whitespaces
 trim(){
-    sed -i 's/ *$//' $1
+    sed -i 's/ *$//g' $1
 }
 
 # first action aliases

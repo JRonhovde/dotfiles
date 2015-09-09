@@ -15,3 +15,9 @@ I followed the instructions found at the link above, with a few minor deviations
   [creating a new repository](https://help.github.com/articles/create-a-repo/)(named dotfiles) and 
   [importing/cloning a repository](https://help.github.com/articles/importing-a-git-repository-using-the-command-line/) 
   to create a local 'dotfiles' repo.
+3. **Nested repositories(vim plugins)**
+  * If you happen to have any git repositories nested inside a 'dot' directory(`.vim/` for example), you'll need to take a few extra steps to get them working once you've moved `~/.vim/` to `~/dotfiles/vim/`. Each nested repository will have to be converted into a git [submodule](http://git-scm.com/docs/git-submodule). 
+    * Remove any nested repositories, and commit the changes.
+    * Clone the removed repositories as submodules.
+    * All of my repositories were vim plugins located in the `vim/bundle/` directory, so my git submodule commands looked like this: `git submodule add git@github.com:tpope/vim-fugitive.git vim/bundle/vim-fugitive`
+    * Once you've done this for all your nested repositories, commit and push and you should be good to go.

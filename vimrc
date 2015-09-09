@@ -169,7 +169,8 @@ nnoremap ;sp i");<cr>print("<ESC>k$F"h
 nnoremap ;jp J?"<cr>v/"<cr>x
 
 "wrap line in print statement
-nnoremap ;wp :s/\([^][^>][^$]*\)/print("\1");<cr>
+"nnoremap ;wp :s/\([^][^>][^$]*\)/print("\1");<cr>
+"nnoremap ;wp :s/\v(%(%(\<\? *%(\=|echo) *)|%( *\?\>)|[^ ].{-})*) *$/print("\1");/g<cr>
 
 "strip print statement from line
 nnoremap ;dp :s/print("\(.*\)");/\1<cr>

@@ -6,6 +6,7 @@
 	filemode = true
 	bare = false
 	logallrefupdates = true
+	editor = vim
 [color]
     diff = auto
 [color "diff"]

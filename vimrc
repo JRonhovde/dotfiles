@@ -83,7 +83,7 @@ let g:syntastic_php_checkers = ['php', 'Javascript', 'HTML', 'CSS']
 "End Syntastic settings
 
 "matchit settings
-let b:match_ignorecase=1 "matchit.vim ignores case
+let b:match_ignorecase = 1 "matchit.vim ignores case
 
 ":ab #b /****************************************
 ":ab #e *****************************************/

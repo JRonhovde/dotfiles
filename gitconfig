@@ -18,3 +18,5 @@
 	autosetupmerge = always
 [push]
 	default = current
+[grep]
+	patternType = perl

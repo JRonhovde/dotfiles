@@ -1,6 +1,7 @@
 execute pathogen#infect()
 syntax on
 filetype plugin indent on
+runtime syntax/php.vim
 
 set nohlsearch
 set tabstop=4
@@ -134,6 +135,10 @@ set incsearch
 "Take visually selected text and place into search and replace
 vnoremap <C-r> "hy:,$s#<C-r>h##gc<left><left><left>
 
+"Search in within visual selection
+vnoremap / <Esc>/\%><C-R>=line("'<")-1<CR>l\%<<C-R>=line("'>")+1<CR>l
+vnoremap ? <Esc>?\%><C-R>=line("'<")-1<CR>l\%<<C-R>=line("'>")+1<CR>l
+
 " vim-se-conventions remap
 vnoremap ;sec <esc>:SEConventions<CR>
 
@@ -252,12 +257,12 @@ command Spaces 1,$s/\s+$//g
 command Tabs 1,$s/\t/    /g
 
 " comment out current line
-nnoremap zx :,s/[A-Za-z$<\{\}\/]/\/\/&<cr>
+"nnoremap zx :,s/[A-Za-z$<\{\}\/]/\/\/&<cr>
 "cnoremap zz :,s/[A-Za-z$<\{\}\/]/\/\/&<cr>
 "inoremap zz :,s/[A-Za-z$<\{\}\/]/\/\/&<cr>
 
 " remove comment on current line
-nnoremap xz :,s/\/\///<cr>
+"nnoremap xz :,s/\/\///<cr>
 "cnoremap xx :,s/\/\///<cr>
 "inoremap xx :,s/\/\///<cr>
 

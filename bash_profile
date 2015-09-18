@@ -1,10 +1,5 @@
 # .bash_profile
 
-# Get the aliases and functions
-if [ -f ~/.bashrc ]; then
-    . ~/.bashrc
-fi
-
 set -o vi
 # User specific environment and startup programs
 
@@ -116,7 +111,7 @@ alias sc1="sc && gckm && gpm"
 
 # Customize Bash Prompt
 source /usr/share/git-core/contrib/completion/git-prompt.sh
-export PS1='\[\e[0;32m\][\u@\h \W]\[\e[0m\]$(__git_ps1)$ ' #works!
+export PS1='\[\e[1;32m\][\u@\h \W]\[\e[0m\]$(__git_ps1)$ ' #works!
 
 # dashboard
 alias di="d && vi index.php"
@@ -124,14 +119,8 @@ alias di="d && vi index.php"
 # back one dir
 alias ..="cd .."
 
-# open last file(doesnt work)
-alias last='ls -tr | tail -1'
-
 # Monitor db access
 alias m='mysql -h localhost -u topper -p sls'
-
-# cleaner* grep
-#alias gr="grep --exclude=\"DisplayBottom\""
 
 # git commands
 alias gd='git diff'

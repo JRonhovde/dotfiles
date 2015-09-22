@@ -91,10 +91,6 @@ set incsearch
     let b:match_ignorecase=1 "matchit.vim ignores case
 " }
 
-":ab #b /****************************************
-":ab #e *****************************************/
-
-
 "visually select blocks of text {
     onoremap <silent>ai :<C-U>cal <SID>IndTxtObj(0)<CR>
     onoremap <silent>ii :<C-U>cal <SID>IndTxtObj(1)<CR>
@@ -128,10 +124,6 @@ set incsearch
     endfunction
 " }
 
-"Highlight sql keywords(annoying)
-"let php_sql_query=1
-
-
 "Take visually selected text and place into search and replace
 vnoremap <C-r> "hy:,$s#<C-r>h##gc<left><left><left>
 
@@ -141,6 +133,23 @@ vnoremap ? <Esc>?\%><C-R>=line("'<")-1<CR>l\%<<C-R>=line("'>")+1<CR>l
 
 " vim-se-conventions remap
 vnoremap ;sec <esc>:SEConventions<CR>
+
+function! Vgrep(pat)
+    let l:argList = split(a:pat)
+    let s:pat = l:argList[0]
+    if len(l:argList) > 1
+        let l:filesList = l:argList[1:]
+    else
+        let l:filesList = argv()
+        let l:filesList = l:filesList[1:]
+    endif
+    let s:newfiles = join(l:filesList," ")
+    execute 'silent! vimgrep /'.s:pat.'/j '.s:newfiles
+    execute 'cw'
+endfunction
+
+command! -nargs=* Vgrep call Vgrep(<q-args>)
+"command! -nargs=1 Vgrep vimgrep /<cword>/j <q-args>
 
 "GREP current word in current file
 command GREP :execute 'vimgrep '.expand('<cword>').' '.expand('%') | :copen | :cc
@@ -267,10 +276,10 @@ command Tabs 1,$s/\t/    /g
 "inoremap xx :,s/\/\///<cr>
 
 " case insensitive commands
-command Q q
-command W w
-command Qw qw
-command QW qw
+command! Q q
+command! W w
+command! Qw qw
+command! QW qw
 
 " change comment colors
 "hi Comment term=bold ctermfg=Green guifg=#FFFFFF

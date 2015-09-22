@@ -27,14 +27,15 @@ rc() {
 }
 
 resetperl(){
-    git add $1
-    git add testfile.txt
     git checkout .
     perl $1
+    git diff
 }
 
 # email a file
 alias send='mail -s "Note From Myself" jronhovde@sycamoreleaf.com <'
+alias sendbrock='mail -s "Note From Jon" brock@sycamoreleaf.com <'
+alias sendglen='mail -s "SQL File List" glen@sycamoreleaf.com <'
 
 gfiles(){
     grep -L "$2" admissions/*.php $(grep -l -s "$1" *.php) -s  > greptest.txt

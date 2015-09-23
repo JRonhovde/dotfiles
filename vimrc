@@ -1,26 +1,41 @@
 execute pathogen#infect()
 syntax on
 filetype plugin indent on
+
+" custom php syntax file
 runtime syntax/php.vim
 
-set nohlsearch
-set tabstop=4
-set shiftwidth=4
-set expandtab
-set noshowmode
-set ignorecase
-set smartcase
-set smartindent
-"set cindent
-"set number
-set confirm
-"set display=lastline
-set hidden
-set lazyredraw
-set scrolloff=10
-" automatically adds closing parentheses
-" jump to entries while typing search parameters
-set incsearch 
+" folding {
+    "set foldlevelstart=0
+    "set foldnestmax=1
+    "let php_folding=1
+    "let javaScript_fold=1
+
+    "au BufReadPre * setlocal foldmethod=indent
+    "au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
+" }
+
+
+" 'set' block {
+    set nohlsearch
+    set tabstop=4
+    set shiftwidth=4
+    set expandtab
+    set noshowmode
+    set ignorecase
+    set smartcase
+    set smartindent
+    "set cindent
+    "set number
+    set confirm
+    "set display=lastline
+    set hidden
+    set lazyredraw
+    set scrolloff=10
+    " automatically adds closing parentheses
+    " jump to entries while typing search parameters
+    set incsearch 
+" }
 
 " Solarized settings {
     set t_Co=256
@@ -127,59 +142,72 @@ set incsearch
 "Take visually selected text and place into search and replace
 vnoremap <C-r> "hy:,$s#<C-r>h##gc<left><left><left>
 
-"Search in within visual selection
-vnoremap / <Esc>/\%><C-R>=line("'<")-1<CR>l\%<<C-R>=line("'>")+1<CR>l
-vnoremap ? <Esc>?\%><C-R>=line("'<")-1<CR>l\%<<C-R>=line("'>")+1<CR>l
+"Search in within visual selection {
+    vnoremap / <Esc>/\%><C-R>=line("'<")-1<CR>l\%<<C-R>=line("'>")+1<CR>l
+    vnoremap ? <Esc>?\%><C-R>=line("'<")-1<CR>l\%<<C-R>=line("'>")+1<CR>l
+" }
 
 " vim-se-conventions remap
 vnoremap ;sec <esc>:SEConventions<CR>
 
-function! Vgrep(pat)
-    let l:argList = split(a:pat)
-    let s:pat = l:argList[0]
-    if len(l:argList) > 1
-        let l:filesList = l:argList[1:]
-    else
-        let l:filesList = argv()
-        let l:filesList = l:filesList[1:]
-    endif
-    let s:newfiles = join(l:filesList," ")
-    execute 'silent! vimgrep /'.s:pat.'/j '.s:newfiles
-    execute 'cw'
-endfunction
+" vgrep {
+    function! Vgrep(pat)
+        if len(a:pat) == 0
+            let s:pat = expand("<cword>")
+            let l:filesList = argv()
+            let l:filesList = l:filesList[1:]
+        else
+            let l:argList = split(a:pat)
+            let s:pat = l:argList[0]
+            if len(l:argList) > 1
+                let l:filesList = l:argList[1:]
+            else
+                let l:filesList = argv()
+                let l:filesList = l:filesList[1:]
+            endif
+        endif
+        let s:newfiles = join(l:filesList," ")
+        execute 'silent! vimgrep /'.s:pat.'/j '.s:newfiles
+        execute 'cw'
+    endfunction
 
-command! -nargs=* Vgrep call Vgrep(<q-args>)
-"command! -nargs=1 Vgrep vimgrep /<cword>/j <q-args>
+    command! -nargs=* Vgrep call Vgrep(<q-args>)
+    "command! -nargs=1 Vgrep vimgrep /<cword>/j <q-args>
+" }
 
 "GREP current word in current file
 command GREP :execute 'vimgrep '.expand('<cword>').' '.expand('%') | :copen | :cc
 
-" Always use 'very magic'
-"nnoremap / /\v
-"vnoremap / /\v
-"cnoremap %s/ %smagic/
-"cnoremap \>s/ \>smagic/
-"nnoremap :g/ :g/\v
-"nnoremap :g// :g//
+" Always use 'very magic' {
+    "nnoremap / /\v
+    "vnoremap / /\v
+    "cnoremap %s/ %smagic/
+    "cnoremap \>s/ \>smagic/
+    "nnoremap :g/ :g/\v
+    "nnoremap :g// :g//
+" }
 
-"Centers search results
-nnoremap n nzzzv
-nnoremap N Nzzzv
+"Centers search results {
+    nnoremap n nzzzv
+    nnoremap N Nzzzv
+" }
 
 "Syntax complete <C-X><C-O>
 set omnifunc=syntaxcomplete#Complete
 
-"search and replace error_logs, debug_logs, and alerts
-command DL %s/\(\/\)\@<!debug_log/\/\/debug_log/g
-command DG %s/\(\/\)\@<!debug_log/\/\/debug_log/gc
-command EL %s/\(\/\)\@<!error_log/\/\/error_log/g
-command EG %s/\(\/\)\@<!error_log/\/\/error_log/gc
-command AL %s/\(\/\)\@<!alert/\/\/alert/gc
-command EC %s/\(\/\)\@<!echo/\/\/echo/gc
+"search and replace error_logs, debug_logs, and alerts {
+    command DL %s/\(\/\)\@<!debug_log/\/\/debug_log/g
+    command DG %s/\(\/\)\@<!debug_log/\/\/debug_log/gc
+    command EL %s/\(\/\)\@<!error_log/\/\/error_log/g
+    command EG %s/\(\/\)\@<!error_log/\/\/error_log/gc
+    command AL %s/\(\/\)\@<!alert/\/\/alert/gc
+    command EC %s/\(\/\)\@<!echo/\/\/echo/gc
+" }
 
 "Closes php, opens JS, closes JS, opens PHP
 nnoremap ;s i?><cr><SCRIPT type='text/javascript'><cr><cr></SCRIPT><cr><?<ESC>kki
 
+" print statements {
 "split print statement
 nnoremap ;sp i");<cr>print("<ESC>k$F"h
 
@@ -193,7 +221,11 @@ nnoremap ;jp J?"<cr>v/"<cr>x
 "strip print statement from line
 nnoremap ;dp :s/print("\(.*\)");/\1<cr>
 
-"use <TAB> autocompletion in insert mode
+" insert print statement on next line
+nnoremap ;np oprint("");<ESC>hhi
+" }
+
+"use <TAB> autocompletion in insert mode {
 function MyTabOrComplete()
     let col = col('.')-1
     if !col || getline('.')[col-1] !~ '\k'
@@ -204,24 +236,12 @@ function MyTabOrComplete()
 endfunction
 
 inoremap <Tab> <C-R>=MyTabOrComplete()<CR>
-
-"Home key goes to first char
-function! SmartHome()
-  let first_nonblank = match(getline('.'), '\S') + 1
-  if first_nonblank == 0
-    return col('.') + 1 >= col('$') ? '0' : '^'
-  endif
-  if col('.') == first_nonblank
-    return '0'  " if at first nonblank, go to start line
-  endif
-  return &wrap && wincol() > 1 ? 'g^' : '^'
-endfunction
-noremap <expr> <silent> <Home> SmartHome()
-imap <silent> <Home> <C-O><Home>
+" }
 
 "reload vimrc source from within vim
 nnoremap <leader>sv :silent! source $MYVIMRC<CR>
 
+" Remove string function {
 " Remove a given string (with confirmation), i.e. ':Remove example' would
 " remove instances of 'example' from the file.
 function Remove(string)
@@ -229,9 +249,11 @@ function Remove(string)
 endfunction
 " call function
 command -nargs=1 Remove call Remove(<q-args>)
+" }
 
-"MainHeight Div Macro
+"MainHeight Div Macro {
 let @m="/\\ctableOGlobal $MainHeight;if($MainHeight) {$height = $MainHeight - 120 .'px';print(\"<DIV style='overflow:auto;height:$height;'>\");o}/table%oif($MainHeight) print(\"</DIV>\");"
+" }
 
 " paste 0 register 
 nnoremap ;p "0p
@@ -253,8 +275,6 @@ inoremap >> <ESC>>>i
 " task search
 nnoremap ;t /\$task == ['"]
 
-" insert print statement on next line
-nnoremap ;np oprint("");<ESC>hhi
 
 " double tap i to escape
 inoremap ii <ESC>
@@ -265,21 +285,12 @@ command Spaces 1,$s/\s+$//g
 "Convert tabs to spaces
 command Tabs 1,$s/\t/    /g
 
-" comment out current line
-"nnoremap zx :,s/[A-Za-z$<\{\}\/]/\/\/&<cr>
-"cnoremap zz :,s/[A-Za-z$<\{\}\/]/\/\/&<cr>
-"inoremap zz :,s/[A-Za-z$<\{\}\/]/\/\/&<cr>
-
-" remove comment on current line
-"nnoremap xz :,s/\/\///<cr>
-"cnoremap xx :,s/\/\///<cr>
-"inoremap xx :,s/\/\///<cr>
-
-" case insensitive commands
+" case insensitive commands {
 command! Q q
 command! W w
 command! Qw qw
 command! QW qw
+" }
 
 " change comment colors
 "hi Comment term=bold ctermfg=Green guifg=#FFFFFF
@@ -288,6 +299,7 @@ command! QW qw
 au BufRead,BufNewFile *.tab set filetype=php
 
 
-"disable bell(ping) noises
+"disable bell(ping) noises {
 set vb 
 set t_vb=
+" }

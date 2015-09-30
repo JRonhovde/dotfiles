@@ -10,6 +10,7 @@ runtime syntax/php.vim
     "set foldnestmax=1
     "let php_folding=1
     "let javaScript_fold=1
+    "set foldmethod=indent
 
     "au BufReadPre * setlocal foldmethod=indent
     "au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif

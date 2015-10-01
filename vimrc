@@ -5,6 +5,7 @@ filetype plugin indent on
 " custom php syntax file
 runtime syntax/php.vim
 
+
 " folding {
     "set foldlevelstart=0
     "set foldnestmax=1
@@ -66,9 +67,11 @@ runtime syntax/php.vim
 
 
 " airline.vim settings {
-    "let g:airline_powerline_fonts = 1
+    let g:airline_powerline_fonts = 1
+    "let g:airline_left_sep = '>'
     let g:airline_left_sep = '»'
     let g:airline_left_sep = '▶'
+    "let g:airline_right_sep = '<'
     let g:airline_right_sep = '«'
     let g:airline_right_sep = '◀'
     let g:airline_symbols.crypt = '🔒'
@@ -100,7 +103,7 @@ runtime syntax/php.vim
     let g:syntastic_check_on_open = 1
     let g:syntastic_check_on_wq = 0
     let g:syntastic_aggregate_errors = 1
-    let g:syntastic_php_checkers = ['php', 'Javascript', 'HTML', 'CSS']
+    let g:syntastic_php_checkers = ['php', 'Javascript', 'HTML', 'CSS', 'sh', 'pl', 'vim']
 " }
 
 "matchit.vim settings {

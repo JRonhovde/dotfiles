@@ -5,6 +5,21 @@ filetype plugin indent on
 " custom php syntax file
 runtime syntax/php.vim
 
+" mozRepl {
+autocmd BufWriteCmd *.html,*.css,*.gtpl :call Refresh_firefox()
+function! Refresh_firefox()
+    if &modified
+        write
+        silent !echo  'vimYo = content.window.pageYOffset;
+                \ vimXo = content.window.pageXOffset;
+                \ BrowserReload();
+                \ content.window.scrollTo(vimXo,vimYo);
+                \ repl.quit();' |
+                \ nc -w 1 localhost 4242 2>&1 > /dev/null
+    endif
+endfunction
+" "}
+
 " folding {
     "set foldlevelstart=0
     "set foldnestmax=1

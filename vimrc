@@ -5,69 +5,8 @@ filetype plugin indent on
 " custom php syntax file
 runtime syntax/php.vim
 
-function! SQLUpd(...)
-    if a:0 == 1
-        let start = a:1
-        let stop = line("$")
-    elseif a:0 == 2
-        let start = a:1
-        let stop = a:2
-    else
-        let start = line("'<")
-        let stop = line("'>")
-    endif
-    if !(start > 0)
-        let start = 0
-    endif
-    if !(stop > 0) 
-        let stop = line("$")
-    endif
-    if start > stop
-        let tmp = start
-        let start = stop
-        let stop = tmp
-    endif
-    let current = start
-    let rsVar = ''
-    let rscVar = ''
-    let fetch = 0
-    let newQuery = 0
-
-    while current <= stop 
-        let leader = 'silent! ' . current . ',' . current
-        " Start SQL logic {
-        let line = getline(current)
-        let rsVarList = matchlist(line, '\c\v(\$[^ ]*)( *\= *mysql_query\(.{-}\);)@=')
-        if len(rsVarList) > 1 
-            let rsVar = rsVarList[1]
-            let rsVar = escape(rsVar,'$')
-            let fetch = 0
-            let newQuery = 1
-        endif
-
-        let rscVarList = matchlist(line, '\c\v(\$[^ ]*)( *\= *mysql_num_rows\( *'.escape(rsVar,'$').' *\);)@=')
-        if len(rscVarList) > 1 
-            let rscVar = rscVarList[1]
-            let rscVar = escape(rscVar,'$')
-        endif
-        if len(rsVar) > 0
-            if newQuery == 1 
-                execute leader.'s/\vfor\(.{-}'.rscVar.'.*\) *\{ *$/while\($fetch_row = mysql_fetch_assoc('.rsVar.'\)) { \/\/\0/i'
-            endif
-            if match(line,'\v\cmysql_result\( *'.rsVar.' *, *%(\$[^ ]+|0) *, *("[^ ]*") *\);') > 0 && fetch == 0
-                let fetch = 1
-                execute '/\vmysql_result\( *'.rsVar.' *, *%(\$[^ ]+|0) *, *("[^ ]*") *\);/normal O// SQL_FETCH'
-                let stop += 1
-                let newQuery = 0
-            endif
-            execute leader.'s/\vmysql_result\( *'.rsVar.' *, *%(\$[^ ]+|0) *, *("[^ ]*") *\);/$fetch_row[\1];/i'
-        endif
-
-        let current += 1
-    endwhile
-endfunction
-
-command! -range -nargs=* SQL call SQLUpd(<f-args>)
+let g:CodeReviewer_reviewer='JWR'
+let g:CodeReviewer_reviewFile='/usr/tmp/jronhovde-reviewer.txt'
 
 " folding {
     "set foldlevelstart=0

@@ -5,21 +5,6 @@ filetype plugin indent on
 " custom php syntax file
 runtime syntax/php.vim
 
-" mozRepl {
-autocmd BufWriteCmd *.html,*.css,*.gtpl :call Refresh_firefox()
-function! Refresh_firefox()
-    if &modified
-        write
-        silent !echo  'vimYo = content.window.pageYOffset;
-                \ vimXo = content.window.pageXOffset;
-                \ BrowserReload();
-                \ content.window.scrollTo(vimXo,vimYo);
-                \ repl.quit();' |
-                \ nc -w 1 localhost 4242 2>&1 > /dev/null
-    endif
-endfunction
-" "}
-"
 function! SQLUpd(...)
     if a:0 == 1
         let start = a:1
@@ -178,10 +163,10 @@ command! -range -nargs=* SQL call SQLUpd(<f-args>)
 
     let g:syntastic_always_populate_loc_list = 1
     let g:syntastic_auto_loc_list = 1
-    let g:syntastic_check_on_open = 1
+    let g:syntastic_check_on_open = 0
     let g:syntastic_check_on_wq = 0
     let g:syntastic_aggregate_errors = 1
-    let g:syntastic_php_checkers = ['php', 'Javascript', 'HTML', 'CSS', 'sh', 'pl', 'vim']
+    let g:syntastic_php_checkers = ['php', 'tab', 'inc']
 " }
 
 "matchit.vim settings {

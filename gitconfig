@@ -1,6 +1,9 @@
 [user]
 	email = jronhovde90@gmail.com
 	name = JRonhovde
+[alias]
+    co = checkout
+    br = branch
 [core]
 	repositoryformatversion = 0
 	filemode = true

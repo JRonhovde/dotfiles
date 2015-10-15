@@ -16,6 +16,10 @@ alias scd='cd /usr/local/apache/htdocs/sc_dev'
 alias d='cd /usr/local/apache/htdocs/dash'
 alias r0='cd Reports/0/'
 
+source ~/gitcomments/gitcomments.sh
+source ~/segrep.sh
+export GREP_OPTIONS='--color=always'
+
 # Generic report card dir navigation
 rc() {
     ss && cd Schools/$1/ReportCards
@@ -30,7 +34,9 @@ resetperl(){
 # email a file
 alias send='mail -s "Note From Myself" jronhovde@sycamoreleaf.com <'
 alias sendbrock='mail -s "Note From Jon" brock@sycamoreleaf.com <'
-alias sendglen='mail -s "SQL File List" glen@sycamoreleaf.com <'
+alias sendglen='mail -s "Note From Jon" glen@sycamoreleaf.com <'
+alias sendryan='mail -s "Note From Jon" rcameron@sycamoreleaf.com <'
+alias sendjeremiah='mail -s "Note From Jon" jbohling@sycamoreleaf.com <'
 
 gfiles(){
     grep -L "$2" admissions/*.php $(grep -l -s "$1" *.php) -s  > greptest.txt
@@ -46,47 +52,6 @@ lsedit(){
 lsview(){
     find admissions/*.{php,js,inc,html,tab} admin/*.{php,js,inc,html,tab} Reports/0/*.{php,js,inc,html,tab} *.{php,js,inc,html,tab} | xargs grep $2 $1 > greptest.txt
     vim greptest.txt
-}
-
-# better grep
-# syntax: gr string method
-# example: gr "functionName" open
-# result: opens all files containing functionName in vim buffers
-gr(){
-    if [ "$2" == "open" ]; then
-        # opens all matching files in vim
-        vim $(find admissions/*.{php,inc,tab} Reports/0/*.{php,inc,tab} *.{php,inc,tab} 2>/dev/null | xargs grep -l "$1")
-    elif [ "$2" == "files" ]; then
-        # lists all files containing matching string
-        find admissions/*.{php,inc,tab} Reports/0/*.{php,inc,tab} *.{php,inc,tab} 2>/dev/null | xargs grep -l "$1"
-    elif [ "$2" == "count" ]; then
-        # lists all matching files with # of occurences per file, skipping files with 0 matches
-        find admissions/*.{php,inc,tab} Reports/0/*.{php,inc,tab} *.{php,inc,tab} 2>/dev/null | xargs grep -c "$1" | sed '/:0$/d'
-    elif [ "$2" == "total" ]; then
-        # counts total number of occurences in all files
-        find admissions/*.{php,inc,tab} Reports/0/*.{php,inc,tab} *.{php,inc,tab} 2>/dev/null | xargs cat | grep -c "$1"
-    elif [ "$2" == "viewfiles" ]; then
-        # writes matching file names into a file (greptest.txt) then opens greptest.txt 
-        find admissions/*.{php,inc,tab} Reports/0/*.{php,inc,tab} *.{php,inc,tab} 2>/dev/null | xargs grep -l "$1" > greptest.txt
-        vim greptest.txt 
-    elif [ "$2" == "viewcountfiles" ]; then
-        # writes matching file names into a file (greptest.txt) with # of matches then opens greptest.txt  
-        find admissions/*.{php,inc,tab} Reports/0/*.{php,inc,tab} *.{php,inc,tab} 2>/dev/null | xargs grep -c "$1" | sed '/:0$/d' > greptest.txt
-        vim greptest.txt 
-    elif [ "$2" == "and" ]; then
-        # grep two separate strings !!!Does not work if either string can match to a file or dir name 
-        find admissions/*.{php,inc,tab} Reports/0/*.{php,inc,tab} *.{php,inc,tab} 2>/dev/null | xargs grep "$1" | grep "$3"
-    elif [ "$2" == "notfiles" ]; then
-        # reverse grep for filenames
-        find admissions/*.php Reports/0/*.php *.php 2>/dev/null | xargs grep -L "$1"
-    elif [ "$2" == "notcount" ]; then
-        # reverse grep for filenames
-        find admissions/*.php Reports/0/*.php *.php 2>/dev/null | xargs grep -L "$1" | wc -l
-    else
-        # regular grep
-        find admissions/*.{php,inc,tab} Reports/0/*.{php,inc,tab} *.{php,inc,tab} 2>/dev/null | xargs grep "$1"
-    fi
-    return 0
 }
 
 # git show $(git blame families.php -L 100,104 | awk '{print $1}')

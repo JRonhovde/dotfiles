@@ -31,3 +31,6 @@
 [submodule "vim/bundle/vim-unimpaired"]
 	path = vim/bundle/vim-unimpaired
 	url = git://github.com/tpope/vim-unimpaired.git
+[submodule "vim/bundle/CodeReviewer"]
+	path = vim/bundle/CodeReviewer
+	url = git@github.com:vim-scripts/CodeReviewer.vim.git

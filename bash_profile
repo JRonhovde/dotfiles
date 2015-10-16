@@ -103,6 +103,8 @@ alias gstache='git stash'
 alias gpop='git stash pop'
 alias gcombo='gpm && gclean'
 
+alias mergebase='git merge-base HEAD master'
+
 # debug_log
 alias dlogs='tail -f /usr/local/apache/htdocs/jon/debug_log | grep -v scalar'
 

@@ -106,6 +106,8 @@ let g:CodeReviewer_reviewFile='/usr/tmp/jronhovde-reviewer.txt'
     let g:syntastic_check_on_wq = 0
     let g:syntastic_aggregate_errors = 1
     let g:syntastic_php_checkers = ['php', 'tab', 'inc']
+    let g:syntastic_enable_perl_checker = 1
+    let g:syntastic_perl_checkers = ['pl', 'perl']
 " }
 
 "matchit.vim settings {
@@ -303,7 +305,6 @@ command! QW qw
 
 " force .tab to use php syntax highlighting
 au BufRead,BufNewFile *.tab set filetype=php
-
 
 "disable bell(ping) noises {
 set vb 

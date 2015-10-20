@@ -17,7 +17,7 @@ alias d='cd /usr/local/apache/htdocs/dash'
 alias r0='cd Reports/0/'
 
 source ~/gitcomments/gitcomments.sh
-source ~/segrep.sh
+source ~/segrep/segrep.sh
 export GREP_OPTIONS='--color=always'
 
 # Generic report card dir navigation

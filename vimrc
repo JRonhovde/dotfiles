@@ -1,6 +1,10 @@
 execute pathogen#infect()
 syntax on
 filetype plugin indent on
+set term=xterm-256color
+set termencoding=utf8
+set guifont=Anonymice\ Powerline:10
+
 
 " custom php syntax file
 runtime syntax/php.vim
@@ -43,10 +47,10 @@ let g:CodeReviewer_reviewFile='/usr/tmp/jronhovde-reviewer.txt'
 
 " Solarized settings {
     set t_Co=256
-    set background=dark
     let g:solarized_termcolors=256
-    colorscheme solarized
     let g:solarized_termtrans=1
+    set background=dark
+    colorscheme solarized
 " }
 
 " disable Sensible {
@@ -57,9 +61,7 @@ let g:CodeReviewer_reviewFile='/usr/tmp/jronhovde-reviewer.txt'
 
 "fugitive.vim settings {
     set diffopt+=vertical
-
-    let g:airline_powerline_fonts=1
-    set guifont=Anonymice_Powerline
+    "set guifont=Anonymice_Powerline
     "airline setting
     if !exists('g:airline_symbols')
         let g:airline_symbols = {}
@@ -69,12 +71,20 @@ let g:CodeReviewer_reviewFile='/usr/tmp/jronhovde-reviewer.txt'
 
 
 " airline.vim settings {
+    let g:airline_theme='powerlineish'
     let g:airline_powerline_fonts = 1
+    "let g:airline_left_sep = ''
+    "let g:airline_left_alt_sep = ''
+    "let g:airline_right_sep = ''
+    "let g:airline_right_alt_sep = ''
+    "let g:airline_symbols.branch = ''
+    "let g:airline_symbols.readonly = ''
+    "let g:airline_symbols.linenr = ''
     "let g:airline_left_sep = '>'
-    let g:airline_left_sep = '»'
+    "let g:airline_left_sep = '»'
     let g:airline_left_sep = '▶'
     "let g:airline_right_sep = '<'
-    let g:airline_right_sep = '«'
+    "let g:airline_right_sep = '«'
     let g:airline_right_sep = '◀'
     let g:airline_symbols.crypt = '🔒'
     let g:airline_symbols.linenr = '␊'
@@ -85,11 +95,19 @@ let g:CodeReviewer_reviewFile='/usr/tmp/jronhovde-reviewer.txt'
     let g:airline_symbols.paste = 'Þ'
     let g:airline_symbols.paste = '∥'
     let g:airline_symbols.whitespace = 'Ξ'
-    let g:airline_section_a = airline#section#create(['mode', ' ', 'branch'])
-    let g:airline_section_y = ''
+    "let g:airline_section_a = airline#section#create(['mode', ' ', 'branch'])
+
+    "let g:airline_section_y = ''
+    "let g:airline#extensions#default#section_truncate_width = {
+                "\ 'y':200
+                "\ }
+    let g:airline#extensions#default#layout = [
+                \ [ 'a', 'b', 'c' ],
+                \ [ 'x', 'z' ]
+                \ ]
     let g:airline#extensions#whitespace#mixed_indent_algo = 1
     let g:airline#extensions#branch#enabled = 1
-    let g:airline#extensions#branch#displayed_head_limit = 15
+    let g:airline#extensions#branch#displayed_head_limit = 20
     let g:airline#extensions#whitespace#enabled = 0
     let g:airline#extensions#tabline#enabled = 1
     set ttimeoutlen=50
@@ -196,8 +214,8 @@ command GREP :execute 'vimgrep '.expand('<cword>').' '.expand('%') | :copen | :c
 " }
 
 "Centers search results {
-    nnoremap n nzzzv
-    nnoremap N Nzzzv
+    "nnoremap n nzzzv
+    "nnoremap N Nzzzv
 " }
 
 "Syntax complete <C-X><C-O>
@@ -213,24 +231,35 @@ set omnifunc=syntaxcomplete#Complete
 " }
 
 "Closes php, opens JS, closes JS, opens PHP
-nnoremap ;s i?><cr><SCRIPT type='text/javascript'><cr><cr></SCRIPT><cr><?<ESC>kki
+nnoremap ;js i?><cr><SCRIPT type='text/javascript'><cr><cr></SCRIPT><cr><?<ESC>kki
 
 " print statements {
-"split print statement
-nnoremap ;sp i");<cr>print("<ESC>k$F"h
+    "join print statement
+    nnoremap ;jp JF"df"
 
-"join print statement
-nnoremap ;jp J?"<cr>v/"<cr>x
+    "wrap line in print statement
+    "nnoremap ;wp :s/\([^][^>][^$]*\)/print("\1");<cr>
+    "nnoremap ;wp :s/\v(%(%(\<\? *%(\=|echo) *)|%( *\?\>)|[^ ].{-})*) *$/print("\1");/g<cr>
 
-"wrap line in print statement
-"nnoremap ;wp :s/\([^][^>][^$]*\)/print("\1");<cr>
-"nnoremap ;wp :s/\v(%(%(\<\? *%(\=|echo) *)|%( *\?\>)|[^ ].{-})*) *$/print("\1");/g<cr>
+    "strip print statement from line
+    nnoremap ;dp :s/\vprint\("(.*)"\);/\1/<cr>
 
-"strip print statement from line
-nnoremap ;dp :s/print("\(.*\)");/\1<cr>
+    " insert print statement on next line
+    nnoremap ;np oprint("");<ESC>hhi
+    "
+    "split sql/print/etc
+    function SplitString()
+        let col = getpos('.')
+        let pos = col[2] + 1
+        let line = getline('.')
+        if match(line, '^\s*print(') > -1
+            silent! execute ':s/\v%((^\s*).*)%<'.pos.'c/&"\);\r\1print("/'
+        else
+            silent! execute ':s/\v%((^\s*\$\w+).*)%<'.pos.'c/&";\r\1 .= "/'
+        endif
+    endfunction
 
-" insert print statement on next line
-nnoremap ;np oprint("");<ESC>hhi
+    nnoremap ;ss :call SplitString()<cr>
 " }
 
 "use <TAB> autocompletion in insert mode {
@@ -247,7 +276,7 @@ inoremap <Tab> <C-R>=MyTabOrComplete()<CR>
 " }
 
 "reload vimrc source from within vim
-nnoremap <leader>sv :silent! source $MYVIMRC<CR>
+nnoremap <leader>sv :silent! source $MYVIMRC \|\| AirlineRefresh<CR>
 
 " Remove string function {
 " Remove a given string (with confirmation), i.e. ':Remove example' would
@@ -269,10 +298,8 @@ nnoremap ;p "0p
 "Move up and down screen lines rather than code lines
 nnoremap j gj
 nnoremap k gk
-
-" block comments
-inoremap /* <ESC><S-o><ESC>0i/*
-inoremap */ <ESC>o<ESC>0i*/
+vnoremap j gj
+vnoremap k gk
 
 " tab line left in insert mode
 inoremap << <ESC><<i
@@ -282,7 +309,6 @@ inoremap >> <ESC>>>i
 
 " task search
 nnoremap ;t /\$task == ['"]
-
 
 " double tap i to escape
 inoremap ii <ESC>

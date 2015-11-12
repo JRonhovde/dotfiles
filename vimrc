@@ -40,7 +40,6 @@ let g:CodeReviewer_reviewFile='/usr/tmp/jronhovde-reviewer.txt'
     set hidden
     set lazyredraw
     set scrolloff=10
-    " automatically adds closing parentheses
     " jump to entries while typing search parameters
     set incsearch 
 " }
@@ -48,7 +47,7 @@ let g:CodeReviewer_reviewFile='/usr/tmp/jronhovde-reviewer.txt'
 " Solarized settings {
     set t_Co=256
     let g:solarized_termcolors=256
-    let g:solarized_termtrans=1
+    "let g:solarized_termtrans=1
     set background=dark
     colorscheme solarized
 " }

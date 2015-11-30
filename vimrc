@@ -329,7 +329,8 @@ command! QW qw
 "hi Comment term=bold ctermfg=Green guifg=#FFFFFF
 
 " force .tab to use php syntax highlighting
-au BufRead,BufNewFile *.tab set filetype=php
+au BufRead,BufNewFile *.tab,*.inc set filetype=php
+
 
 "disable bell(ping) noises {
 set vb 

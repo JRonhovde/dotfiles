@@ -34,3 +34,6 @@
 [submodule "vim/bundle/CodeReviewer"]
 	path = vim/bundle/CodeReviewer
 	url = git@github.com:vim-scripts/CodeReviewer.vim.git
+[submodule "vim/bundle/vim-json"]
+	path = vim/bundle/vim-json
+	url = git@github.com:elzr/vim-json.git

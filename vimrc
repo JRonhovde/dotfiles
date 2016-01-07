@@ -366,6 +366,9 @@ command! QW qw
 " force .tab to use php syntax highlighting
 autocmd BufRead,BufNewFile *.tab,*.inc set filetype=php
 
+" disable auto commenting
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
 
 "disable bell(ping) noises {
 set vb 

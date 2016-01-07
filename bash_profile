@@ -11,7 +11,7 @@ for b in ~/.bash_profile_*; do source $b; done
 
 # navigating common dirs
 alias sec='cd ~/.vim/bundle/vim-se-conventions/'
-alias df='cd ~/dotfiles'
+#alias df='cd ~/dotfiles'
 
 export GREP_OPTIONS='--color=always'
 
@@ -32,8 +32,6 @@ trim(){
 source /usr/share/git-core/contrib/completion/git-prompt.sh
 export PS1='\[\e[1;32m\][\u@\h \W]\[\e[0m\]$(__git_ps1)$ ' #works!
 
-# back one dir
-alias ..="cd .."
 
 # git commands
 alias gd='git diff'
@@ -57,6 +55,9 @@ grecent() {
     git show $(git log -1 --pretty=format:"%h" $1) $1
 }
 
+# find any non-input or button elements with the 'btn' class
+#grep "class=.*btn[^-].*" *.php | sed '/^.*\(<button\|<input\).*btn[^-].*$/Id'
+
 alias mergebase='git merge-base HEAD master'
 
 alias mergefiles='git status | grep "both modified:" | sed "s/^.*both modified: *//g"'
@@ -64,7 +65,7 @@ alias gmc='vim $(git status | grep "both modified:" | sed "s/^.*both modified: *
 
 alias vi='vim'
 alias evi='vi ~/.vimrc'
-alias eb='vi ~/.bash_profile'
+alias eb='vi ~/.bash_profile*'
 alias ch='ps axu | grep httpd | wc -l'
 
 set bell-style none

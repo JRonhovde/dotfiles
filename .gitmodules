@@ -37,3 +37,6 @@
 [submodule "vim/bundle/vim-json"]
 	path = vim/bundle/vim-json
 	url = git@github.com:elzr/vim-json.git
+[submodule "vim/bundle/vim-commit-diff"]
+	path = vim/bundle/vim-commit-diff
+	url = git@github.com:JRonhovde/vim-commit-diff

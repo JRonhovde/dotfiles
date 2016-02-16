@@ -131,6 +131,25 @@ let g:CodeReviewer_reviewFile='/usr/tmp/jronhovde-reviewer.txt'
     let b:match_ignorecase=1 "matchit.vim ignores case
 " }
 
+vnoremap <leader>sc <esc>:SCrud<CR>
+"function! CrudGet(...)
+    "let start = line("'<")
+    "let stop = line("'>")
+    "let current = start
+    "let quotes = '"'."'"
+
+    "let objName = matchstr(getline(current), '\v\zs\$[^,) =>]+\ze *\) *\{') 
+    "let current += 1
+
+    "while current <= stop
+        "let leader = 'silent! ' . current . ',' . current
+        "let line = getline(current)
+        "execute leader . 's/\vmysql_result\([^'.quotes.']+['.quotes.'](.*)['.quotes.']/'.objName.'->get("\L\1"/'
+        ""echo leader . 's/\vmysql_result([^'.quotes.']+'.quotes.'(.*)'.quotes.'/'.objName.'->get("\1"/'
+        "let current += 1
+    "endwhile
+"endfunction
+
 "visually select blocks of text {
     onoremap <silent>ai :<C-U>cal <SID>IndTxtObj(0)<CR>
     onoremap <silent>ii :<C-U>cal <SID>IndTxtObj(1)<CR>

@@ -3,8 +3,9 @@
 set -o vi
 # User specific environment and startup programs
 
-PATH=$PATH:$HOME/bin
-export PATH
+source ~/bash_profile_sycamore
+#PATH=$PATH:$HOME/bin
+#export PATH
 
 for f in ~/scripts/*.sh; do source $f; done
 for b in ~/.bash_profile_*; do source $b; done
@@ -14,6 +15,7 @@ alias sec='cd ~/.vim/bundle/vim-se-conventions/'
 #alias df='cd ~/dotfiles'
 
 export GREP_OPTIONS='--color=always'
+
 
 
 resetperl(){
@@ -29,16 +31,9 @@ trim(){
 }
 
 # Customize Bash Prompt
-source /usr/share/git-core/contrib/completion/git-prompt.sh
-export PS1='\[\e[1;32m\][\u@\h \W]\[\e[0m\]$(__git_ps1)$ ' #works!
+#source /usr/share/git-core/contrib/completion/git-prompt.sh
+#export PS1='\[\e[1;32m\][\u@\h \W]\[\e[0m\]$(__git_ps1)$ ' #works!
 
-
-# git commands
-alias gd='git diff'
-alias gc='git commit'
-alias ga='git add'
-alias gu="git checkout master && git fetch -p && git merge origin/master"
-alias gpush='git push origin'
 alias gclean='git branch --merged master | grep -v "\* master" | xargs -n 1 git branch -d'
 
 alias gm="git merge master || printf '\nConflict files:\n' && git status | grep 'both modified:' | sed 's/^.*both modified: *//g'"
@@ -63,7 +58,6 @@ alias mergebase='git merge-base HEAD master'
 alias mergefiles='git status | grep "both modified:" | sed "s/^.*both modified: *//g"'
 alias gmc='vim $(git status | grep "both modified:" | sed "s/^.*both modified: *//g") +Gdiff'
 
-alias vi='vim'
 alias evi='vi ~/.vimrc'
 alias eb='vi ~/.bash_profile*'
 alias ch='ps axu | grep httpd | wc -l'

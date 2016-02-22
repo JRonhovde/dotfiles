@@ -1,4 +1,5 @@
-execute pathogen#infect()
+"execute pathogen#infect()
+execute pathogen#infect('bundle/{}','/usr/local/bin/vim-plugins/{}')
 syntax on
 filetype plugin indent on
 set term=xterm-256color
@@ -23,6 +24,8 @@ let g:CodeReviewer_reviewFile='/usr/tmp/jronhovde-reviewer.txt'
     "au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
 " }
 
+inoremap <leader>br :s/;\=$//<cr>:startinsert!<cr>."<BR>";<esc>
+nnoremap <leader>br :s/;\=$//<cr>:startinsert!<cr>."<BR>";<esc>
 
 " 'set' block {
     set nohlsearch
@@ -68,9 +71,23 @@ let g:CodeReviewer_reviewFile='/usr/tmp/jronhovde-reviewer.txt'
     set laststatus=2
 " }
 
+function! FileTest() 
+    let aliases = {}
+    let g:filePath = '/home/jronhovde/crud_aliases.json'
+    let contents = readfile(fnameescape(g:filePath))
+    for line in contents
+        let aliasList = matchlist(line,'\v"([^"]+)" *: *"=([^",]+)"=')
+        if index(aliasList,'') == 3
+            let aliases[aliasList[1]] = aliasList[2]
+        endif
+    endfor
+    echo aliases
+
+
+endfunction
 
 " airline.vim settings {
-    let g:airline_theme='powerlineish'
+    let g:airline_theme='wombat'
     let g:airline_powerline_fonts = 1
     "let g:airline_left_sep = ''
     "let g:airline_left_alt_sep = ''
@@ -192,7 +209,10 @@ vnoremap <C-r> "hy:,$s#<C-r>h##gc<left><left><left>
 " }
 
 " vim-se-conventions remap
-vnoremap ;sec <esc>:SEConventions<CR>
+vnoremap <leader>sec <esc>:SEConventions<CR>
+
+" vim-sycamore-crud remap
+vnoremap <leader>cr <esc>:SCrud<CR>
 
 " vgrep {
     function! Vgrep(pat)

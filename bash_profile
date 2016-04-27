@@ -3,7 +3,7 @@
 set -o vi
 # User specific environment and startup programs
 
-source ~/bash_profile_sycamore
+source /usr/local/bin/bash_profile_sycamore
 #PATH=$PATH:$HOME/bin
 #export PATH
 
@@ -16,6 +16,7 @@ alias sec='cd ~/.vim/bundle/vim-se-conventions/'
 
 export GREP_OPTIONS='--color=always'
 
+#source ~/gittrello/gittrello.sh
 
 
 resetperl(){
@@ -32,7 +33,7 @@ trim(){
 
 # Customize Bash Prompt
 #source /usr/share/git-core/contrib/completion/git-prompt.sh
-#export PS1='\[\e[1;32m\][\u@\h \W]\[\e[0m\]$(__git_ps1)$ ' #works!
+export PS1='\[\e[1;32m\][\u@\h \W]\[\e[0m\]$(__git_ps1)$ ' #overwrites /usr/local/bin/bash_profile_sycamore
 
 alias gclean='git branch --merged master | grep -v "\* master" | xargs -n 1 git branch -d'
 
@@ -63,3 +64,4 @@ alias eb='vi ~/.bash_profile*'
 alias ch='ps axu | grep httpd | wc -l'
 
 set bell-style none
+bind Space:magic-space

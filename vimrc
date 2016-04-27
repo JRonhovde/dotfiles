@@ -1,10 +1,14 @@
 "execute pathogen#infect()
+let g:pathogen_disabled = []
+"call add(g:pathogen_disabled, 'vim-sycamore-crud')
+"call add(g:pathogen_disabled, 'vim-commit-diff')
 execute pathogen#infect('bundle/{}','/usr/local/bin/vim-plugins/{}')
 syntax on
 filetype plugin indent on
 set term=xterm-256color
 set termencoding=utf8
 set guifont=Anonymice\ Powerline:10
+
 
 
 " custom php syntax file
@@ -27,10 +31,13 @@ let g:CodeReviewer_reviewFile='/usr/tmp/jronhovde-reviewer.txt'
 inoremap <leader>br :s/;\=$//<cr>:startinsert!<cr>."<BR>";<esc>
 nnoremap <leader>br :s/;\=$//<cr>:startinsert!<cr>."<BR>";<esc>
 
+nnoremap <leader>bo :BufOnly
+
 " 'set' block {
     set nohlsearch
     set tabstop=4
     set shiftwidth=4
+    set shiftround
     set expandtab
     set noshowmode
     set ignorecase
@@ -39,7 +46,7 @@ nnoremap <leader>br :s/;\=$//<cr>:startinsert!<cr>."<BR>";<esc>
     "set cindent
     "set number
     set confirm
-    "set display=lastline
+    set display=lastline
     set hidden
     set lazyredraw
     set scrolloff=10
@@ -148,7 +155,17 @@ endfunction
     let b:match_ignorecase=1 "matchit.vim ignores case
 " }
 
-vnoremap <leader>sc <esc>:SCrud<CR>
+
+" copying lines https://www.reddit.com/r/vim/comments/1yfzg2/does_anyone_actually_use_easymotion/cfkaxw5 {
+    cnoremap $t <CR>:t''<CR>
+    cnoremap $T <CR>:T''<CR>
+    cnoremap $m <CR>:m''<CR>
+    cnoremap $M <CR>:M''<CR>
+    cnoremap $d <CR>:d<CR>``
+
+" }
+
+
 "function! CrudGet(...)
     "let start = line("'<")
     "let stop = line("'>")
@@ -260,30 +277,30 @@ command GREP :execute 'vimgrep '.expand('<cword>').' '.expand('%') | :copen | :c
 set omnifunc=syntaxcomplete#Complete
 
 "search and replace error_logs, debug_logs, and alerts {
-    command DL %s/\(\/\)\@<!debug_log/\/\/debug_log/g
-    command DG %s/\(\/\)\@<!debug_log/\/\/debug_log/gc
-    command EL %s/\(\/\)\@<!error_log/\/\/error_log/g
-    command EG %s/\(\/\)\@<!error_log/\/\/error_log/gc
-    command AL %s/\(\/\)\@<!alert/\/\/alert/gc
-    command EC %s/\(\/\)\@<!echo/\/\/echo/gc
+    command DL %s#\v(/)@<!debug_log/\/\##g
+    command DG %s#\v(/)@<!debug_log/\/\#debug_log#gc
+    command EL %s#\v(/)@<!error_log/\/\#error_log#g
+    command EG %s#\v(/)@<!error_log/\/\#error_log#gc
+    command AL %s#\v(/)@<!alert#//alert#gc
+    command EC %s#\v(/)@<!echo#//echo#gc
 " }
 
 "Closes php, opens JS, closes JS, opens PHP
-nnoremap ;js i?><cr><SCRIPT type='text/javascript'><cr><cr></SCRIPT><cr><?<ESC>kki
+nnoremap <leader>js i?><cr><SCRIPT type='text/javascript'><cr><cr></SCRIPT><cr><?<ESC>kki
 
 " print statements {
     "join print statement
-    nnoremap ;jp JF"df"
+    nnoremap <leader>jp JF"df"
 
     "wrap line in print statement
     "nnoremap ;wp :s/\([^][^>][^$]*\)/print("\1");<cr>
     "nnoremap ;wp :s/\v(%(%(\<\? *%(\=|echo) *)|%( *\?\>)|[^ ].{-})*) *$/print("\1");/g<cr>
 
     "strip print statement from line
-    nnoremap ;dp :s/\vprint\("(.*)"\);/\1/<cr>
+    nnoremap <leader>dp :s/\vprint\("(.*)"\);/\1/<cr>
 
     " insert print statement on next line
-    nnoremap ;np oprint("");<ESC>hhi
+    nnoremap <leader>np oprint("");<ESC>hhi
     "
     "split sql/print/etc
     function SplitString()
@@ -297,7 +314,7 @@ nnoremap ;js i?><cr><SCRIPT type='text/javascript'><cr><cr></SCRIPT><cr><?<ESC>k
         endif
     endfunction
 
-    nnoremap ;ss :call SplitString()<cr>
+    nnoremap <leader>ss :call SplitString()<cr>
 " }
 
 "use <TAB> autocompletion in insert mode {
@@ -331,7 +348,7 @@ let @m="/\\ctableOGlobal $MainHeight;if($MainHeight) {$height = $MainHeight -
 " }
 
 " paste 0 register 
-nnoremap ;p "0p
+nnoremap <leader>p "0p
 
 "Move up and down screen lines rather than code lines
 nnoremap j gj
@@ -339,17 +356,8 @@ nnoremap k gk
 vnoremap j gj
 vnoremap k gk
 
-" tab line left in insert mode
-inoremap << <ESC><<i
-
-" tab line right insert mode
-inoremap >> <ESC>>>i
-
 " task search
-nnoremap ;t /\$task == ['"]
-
-" double tap i to escape
-inoremap ii <ESC>
+nnoremap <leader>t /\$task == ['"]
 
 "remove whitespace
 command Spaces 1,$s/\s+$//g
@@ -360,8 +368,8 @@ command Tabs 1,$s/\t/    /g
 " case insensitive commands {
 command! Q q
 command! W w
-command! Qw qw
-command! QW qw
+command! Wq wq
+command! WQ wq
 " }
 
 " change comment colors
@@ -372,6 +380,56 @@ autocmd BufRead,BufNewFile *.tab,*.inc set filetype=php
 
 " disable auto commenting
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+" Press \r to start rotating lines and <C-c> (Control+c) to stop.
+
+function! s:RotateString(string)
+    let split_string = split(a:string, '\zs')
+    return join(split_string[-1:] + split_string[:-2], '')
+endfunction
+
+function! s:RotateLine(line, leading_whitespace, trailing_whitespace)
+    return substitute(
+                \ a:line,
+                \ '^\(' . a:leading_whitespace . '\)\(.\{-}\)\(' . a:trailing_whitespace . '\)$',
+                \ '\=submatch(1) . <SID>RotateString(submatch(2)) . submatch(3)',
+                \ ''
+                \ )
+endfunction
+
+function! s:RotateLines()
+    let saved_view = winsaveview()
+    let first_visible_line = line('w0')
+    let last_visible_line = line('w$')
+    let lines = getline(first_visible_line, last_visible_line)
+    let leading_whitespace = map(
+                \ range(len(lines)),
+                \ 'matchstr(lines[v:val], ''^\s*'')'
+                \ )
+    let trailing_whitespace = map(
+                \ range(len(lines)),
+                \ 'matchstr(lines[v:val], ''\s*$'')'
+                \ )
+    try
+        while 1 " <C-c> to exit
+            let lines = map(
+                        \ range(len(lines)),
+                        \ '<SID>RotateLine(lines[v:val], leading_whitespace[v:val], trailing_whitespace[v:val])'
+                        \ )
+            call setline(first_visible_line, lines)
+            redraw
+            sleep 50m
+        endwhile
+    finally
+        if &modified
+            silent undo
+        endif
+        call winrestview(saved_view)
+    endtry
+endfunction
+
+nnoremap <silent> <Plug>(RotateLines) :<C-u>call <SID>RotateLines()<CR>
+
+nmap <leader>r <Plug>(RotateLines)
 
 
 "disable bell(ping) noises {

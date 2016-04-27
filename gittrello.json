@@ -1,0 +1,62 @@
+{
+    "trello": {
+        "key": "0d8f099586bb1ba35aeb524fd4bd0032",
+        "token": "45239537405342230bd6d85f5b75a7290a87402ce7c88cf8d2043fe9e3bbb9e8",
+        "boards": {
+            "Bugs": {
+                "from": "In Progress",
+                "to": "In Review",
+                "tag": "bug",
+                "labels": {
+                    "High Priority": "!"
+                }
+            },
+            "Enhancements": {
+                "from": "In Progress",
+                "to": "In Review",
+                "tag": "enh",
+                "labels": {
+                    "High Priority": "!"
+                }
+            },
+            "Test Board": {
+                "from": "In Progress",
+                "to": "In Review",
+                "tag": "test",
+                "labels": {
+                    "High Priority": "!"
+                }
+            }
+        }
+    },
+    "github":{
+        "token": "b6241b33fe427838752fc2ce4c77a47f1f13727c",
+        "tags": {
+            "bug": {
+                "labels": [
+                    "Dev Review",
+                    "QA Review"
+                ]
+            },
+            "enh": {
+                "labels": [
+                    "Dev Review",
+                    "QA Review"
+                ]
+            },
+            "dev": {
+                "labels": [
+                    "Dev Review"
+                ]
+            },
+            "test": {
+                "labels": [
+                    "Dev Review"
+                ]
+            }
+        }
+    },
+    "skiptags": [
+        "dev"
+    ]
+}

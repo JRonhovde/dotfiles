@@ -1,0 +1,9 @@
+
+# email a file
+alias send='mail -s "Note From Myself" jronhovde@sycamoreleaf.com <'
+alias sendglen='mail -s "Note From Jon" glen@sycamoreleaf.com <'
+alias sendryan='mail -s "Note From Jon" rcameron@sycamoreleaf.com <'
+alias sendjeremiah='mail -s "Note From Jon" jbohling@sycamoreleaf.com <'
+alias sendmark='mail -s "DOCs to be deleted(1002)" mdalluge@sycamoreleaf.com <'
+
+alias mysqlprod='mysql --defaults-group-suffix=_production'

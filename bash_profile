@@ -4,6 +4,7 @@ set -o vi
 # User specific environment and startup programs
 
 source /usr/local/bin/bash_profile_sycamore
+source /home/jronhovde/perl/inc_functions.sh
 #PATH=$PATH:$HOME/bin
 #export PATH
 
@@ -16,7 +17,11 @@ alias sec='cd ~/.vim/bundle/vim-se-conventions/'
 
 export GREP_OPTIONS='--color=always'
 
-#source ~/gittrello/gittrello.sh
+source ~/gittrello/gittrello.sh
+
+#force crontab to use vim
+export VISUAL=vim
+export EDITOR=vim
 
 
 resetperl(){

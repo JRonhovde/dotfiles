@@ -5,9 +5,9 @@ let g:pathogen_disabled = []
 execute pathogen#infect('bundle/{}','/usr/local/bin/vim-plugins/{}')
 syntax on
 filetype plugin indent on
-set term=xterm-256color
+"set term=xterm-256color
 set termencoding=utf8
-set guifont=Anonymice\ Powerline:10
+"set guifont=Anonymice\ Powerline:10
 
 
 

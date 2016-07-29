@@ -22,10 +22,11 @@ let g:CodeReviewer_reviewFile='/usr/tmp/jronhovde-reviewer.txt'
     "set foldnestmax=1
     "let php_folding=1
     "let javaScript_fold=1
-    "set foldmethod=indent
+    
+    set foldmethod=indent
 
-    "au BufReadPre * setlocal foldmethod=indent
-    "au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
+    au BufReadPre * setlocal foldmethod=indent
+    au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
 " }
 
 inoremap <leader>br :s/;\=$//<cr>:startinsert!<cr>."<BR>";<esc>
@@ -52,6 +53,7 @@ nnoremap <leader>bo :BufOnly
     set scrolloff=10
     " jump to entries while typing search parameters
     set incsearch 
+    set fdo-=search
 " }
 
 " Solarized settings {

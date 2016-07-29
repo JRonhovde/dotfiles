@@ -295,10 +295,10 @@ command GREP :execute 'vimgrep '.expand('<cword>').' '.expand('%') | :copen | :c
 set omnifunc=syntaxcomplete#Complete
 
 "search and replace error_logs, debug_logs, and alerts {
-    command DL %s#\v(/)@<!debug_log/\/\##g
-    command DG %s#\v(/)@<!debug_log/\/\#debug_log#gc
-    command EL %s#\v(/)@<!error_log/\/\#error_log#g
-    command EG %s#\v(/)@<!error_log/\/\#error_log#gc
+    command DL %s#\v(/)@<!debug_log#//debug_log#g
+    command DG %s#\v(/)@<!debug_log#//debug_log#gc
+    command EL %s#\v(/)@<!error_log#//error_log#g
+    command EG %s#\v(/)@<!error_log#//error_log#gc
     command AL %s#\v(/)@<!alert#//alert#gc
     command EC %s#\v(/)@<!echo#//echo#gc
 " }

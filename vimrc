@@ -95,6 +95,22 @@ function! FileTest()
 
 endfunction
 
+function! ArrayToBracket(stop)
+    call cursor(line("."), 0)
+    if search('\<array(', 'cW', a:stop) > 0
+        let match = getpos(".")
+        normal f(%r]
+        call cursor(match[1], match[2])
+        "call setline(match[1], substitute(getline(match[1]), '\<array(\c', '[', ''))
+        execute "s#array(\\c#[#"
+        if search('\<array(', 'cnW', match[1]) > 0
+            call ArrayToBracket(match[1])
+        endif
+    endif
+
+endfunction
+nnoremap <leader>aa :call ArrayToBracket(line('$'))<cr>
+
 " airline.vim settings {
     let g:airline_theme='wombat'
     let g:airline_powerline_fonts = 1

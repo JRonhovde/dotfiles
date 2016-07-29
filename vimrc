@@ -32,7 +32,7 @@ let g:CodeReviewer_reviewFile='/usr/tmp/jronhovde-reviewer.txt'
 inoremap <leader>br :s/;\=$//<cr>:startinsert!<cr>."<BR>";<esc>
 nnoremap <leader>br :s/;\=$//<cr>:startinsert!<cr>."<BR>";<esc>
 
-nnoremap <leader>bo :BufOnly
+nnoremap <leader>bo :BufOnly<cr>
 
 " 'set' block {
     set nohlsearch

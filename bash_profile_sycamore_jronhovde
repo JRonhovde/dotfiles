@@ -7,3 +7,4 @@ alias sendjeremiah='mail -s "Note From Jon" jbohling@sycamoreleaf.com <'
 alias sendmark='mail -s "DOCs to be deleted(1002)" mdalluge@sycamoreleaf.com <'
 
 alias mysqlprod='mysql --defaults-group-suffix=_production'
+alias mysqlcampus='mysql -D campus'

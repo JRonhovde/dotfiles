@@ -1,7 +1,6 @@
 "execute pathogen#infect()
 let g:pathogen_disabled = []
-"call add(g:pathogen_disabled, 'vim-sycamore-crud')
-"call add(g:pathogen_disabled, 'vim-commit-diff')
+call add(g:pathogen_disabled, 'syntastic')
 execute pathogen#infect('bundle/{}','/usr/local/bin/vim-plugins/{}')
 syntax on
 filetype plugin indent on
@@ -9,10 +8,13 @@ filetype plugin indent on
 set termencoding=utf8
 "set guifont=Anonymice\ Powerline:10
 
+set clipboard=unnamed
+
 
 
 " custom php syntax file
 runtime syntax/php.vim
+"runtime syntax/go.vim
 
 let g:CodeReviewer_reviewer='JWR'
 let g:CodeReviewer_reviewFile='/usr/tmp/jronhovde-reviewer.txt'
@@ -56,13 +58,18 @@ nnoremap <leader>bo :BufOnly<cr>
     set fdo-=search
 " }
 
-" Solarized settings {
+
+"" Solarized settings {
     set t_Co=256
     let g:solarized_termcolors=256
-    "let g:solarized_termtrans=1
+    let g:solarized_termtrans=1
     set background=dark
     colorscheme solarized
-" }
+"" }
+"colorscheme tender
+"hi Normal ctermbg=black
+
+"hi Normal guibg=none ctermbg=none
 
 " disable Sensible {
     "let g:pathogen_disabled = ['vim-sensible']
@@ -112,7 +119,7 @@ endfunction
 nnoremap <leader>aa :call ArrayToBracket(line('$'))<cr>
 
 " airline.vim settings {
-    let g:airline_theme='wombat'
+    "let g:airline_theme='tender'
     let g:airline_powerline_fonts = 1
     "let g:airline_left_sep = ''
     "let g:airline_left_alt_sep = ''
@@ -144,7 +151,7 @@ nnoremap <leader>aa :call ArrayToBracket(line('$'))<cr>
                 "\ }
     let g:airline#extensions#default#layout = [
                 \ [ 'a', 'b', 'c' ],
-                \ [ 'x', 'z' ]
+                \ [ 'x','y', 'z' ]
                 \ ]
     let g:airline#extensions#whitespace#mixed_indent_algo = 1
     let g:airline#extensions#branch#enabled = 1
@@ -167,6 +174,7 @@ nnoremap <leader>aa :call ArrayToBracket(line('$'))<cr>
     let g:syntastic_php_checkers = ['php', 'tab', 'inc']
     let g:syntastic_enable_perl_checker = 1
     let g:syntastic_perl_checkers = ['pl', 'perl']
+    let syntastic_mode_map = { 'passive_filetypes': ['html'] }
 " }
 
 "matchit.vim settings {
@@ -242,12 +250,6 @@ vnoremap <C-r> "hy:,$s#<C-r>h##gc<left><left><left>
     vnoremap / <Esc>/\%><C-R>=line("'<")-1<CR>l\%<<C-R>=line("'>")+1<CR>l
     vnoremap ? <Esc>?\%><C-R>=line("'<")-1<CR>l\%<<C-R>=line("'>")+1<CR>l
 " }
-
-" vim-se-conventions remap
-vnoremap <leader>sec <esc>:SEConventions<CR>
-
-" vim-sycamore-crud remap
-vnoremap <leader>cr <esc>:SCrud<CR>
 
 " vgrep {
     function! Vgrep(pat)

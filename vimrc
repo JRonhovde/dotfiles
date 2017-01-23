@@ -58,15 +58,23 @@ nnoremap <leader>bo :BufOnly<cr>
     set fdo-=search
 " }
 
+"" Colorschemes {
 
-"" Solarized settings {
-    set t_Co=256
-    let g:solarized_termcolors=256
-    let g:solarized_termtrans=1
-    set background=dark
-    colorscheme solarized
+""" Solarized settings {
+     "set t_Co=256
+     "let g:solarized_termcolors=256
+     "let g:solarized_termtrans=1
+     "set background=dark
+     "colorscheme solarized
+""" }
+""" Tender settings {
+     if (has("termguicolors"))
+      set termguicolors
+     endif
+     colorscheme tender
+""" }
 "" }
-"colorscheme tender
+
 "hi Normal ctermbg=black
 
 "hi Normal guibg=none ctermbg=none
@@ -119,7 +127,7 @@ endfunction
 nnoremap <leader>aa :call ArrayToBracket(line('$'))<cr>
 
 " airline.vim settings {
-    "let g:airline_theme='tender'
+    let g:airline_theme='tender'
     let g:airline_powerline_fonts = 1
     "let g:airline_left_sep = ''
     "let g:airline_left_alt_sep = ''

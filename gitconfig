@@ -17,11 +17,11 @@
     editor = vim
 [color]
     diff = auto
-[color "diff"]
-    meta = yellow bold
-    frag = green bold
-    old = red
-    new = cyan
+#[color "diff"]
+#    meta = yellow bold
+#    frag = green bold
+#    old = red
+#    new = cyan
 [branch]
     autosetupmerge = always
 [push]

@@ -8,11 +8,10 @@ set -o vi
 
 #export GREP_OPTIONS='--color=always'
 
-# navigating common dirs
-alias sec='cd ~/.vim/bundle/vim-se-conventions/'
-#alias df='cd ~/dotfiles'
+#export PATH=$PATH:/usr/local/opt/go/libexec/bin
 
-export GREP_OPTIONS='--color=always'
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
 
 #source ~/.profile
 

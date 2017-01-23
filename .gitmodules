@@ -46,3 +46,12 @@
 [submodule "vim/bundle/vim-bufonly"]
 	path = vim/bundle/vim-bufonly
 	url = git@github.com:vim-scripts/BufOnly.vim.git
+[submodule "vim/bundle/vim-go"]
+	path = vim/bundle/vim-go
+	url = git@github.com:fatih/vim-go.git
+[submodule "vim/bundle/Dockerfile"]
+	path = vim/bundle/Dockerfile
+	url = git@github.com:ekalinin/Dockerfile.vim.git
+[submodule "vim/bundle/puppet"]
+	path = vim/bundle/puppet
+	url = git@github.com:rodjek/vim-puppet.git

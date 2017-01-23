@@ -21,11 +21,18 @@ export EDITOR=/usr/local/bin/vim
 
 export CLICOLOR=1
 
-resetperl(){
-    git checkout .
-    perl $1
-    git diff
+export LGEN=$GOPATH/src/github.com/AtScaleInc/licensegenerator
+
+#alias makecentos='cd ~/docker/dev-vm/ && make OS=centos6 PORTS_POSTGRESQL=6432 ATSCALE_SKIP=true run'
+#alias makecentosd='cd ~/docker/dev-vm/ && make OS=centos6 ATSCALE_FROM_MOUNT=true DAEMON=true up'
+#alias makecentosd02='cd ~/docker/dev-vm/ && make OS=centos6 ATSCALE_FROM_MOUNT=true DAEMON=true up-02'
+function makecentosd() { 
+    cd ~/docker/dev-vm/ && make OS=centos6 ATSCALE_FROM_MOUNT=true DAEMON=true up-$1 
 }
+
+alias build_installer='cd ~/dev-vm && rm -rf ~/dev-vm/.bundle && ./bin/build.sh -e none -o centos6 --dev && mv ~/dev-vm/atscale-* ~/docker/dev-vm/mount/'
+alias build_installer_run='cd ~/dev-vm && rm -rf ~/dev-vm/.bundle && ./bin/build.sh -e none -o centos6 --dev && mv ~/dev-vm/atscale-* ~/docker/dev-vm/mount/ && cd ~/docker/dev-vm/ && makecentosd 01'
+
 
 # Trim trailing whitespaces
 trim(){
@@ -34,12 +41,24 @@ trim(){
 }
 
 # Customize Bash Prompt
-#source /usr/share/git-core/contrib/completion/git-prompt.sh
-export PS1='\[\e[1;32m\][\u@\h \W]\[\e[0m\]$(__git_ps1)$ ' #overwrites /usr/local/bin/bash_profile_sycamore
+source ~/.git-prompt.sh
+#export PS1='\[\e[1;32m\][\u@\h \W]\[\e[0m\]$(__git_ps1)$ ' 
+#export PS1='\[[\u@\h \W]\[\e[0m\]$(__git_ps1)$ ' 
+if [ $(id -u) -eq 0 ]; then
+    PS1="\\[$(tput setaf 1)\\]\\u@\\h:\\w #\\[$(tput sgr0)\\]"
+else
+    PS1='\[$(tput setaf 48)\][\u@\h \W]\[\e[0m\]$ '
+    #PS1='\[$(tput setaf 48)\][\u@\h \W]\[\e[0m\]$(__git_ps1)$ '
+fi
 
-alias gclean='git branch --merged master | grep -v "\* master" | xargs -n 1 git branch -d'
+#alias gclean='git branch --merged master | grep -v "\* master" | xargs -n 1 git branch -d'
 
-alias gm="git merge master || printf '\nConflict files:\n' && git status | grep 'both modified:' | sed 's/^.*both modified: *//g'"
+#alias gm="git merge master || printf '\nConflict files:\n' && git status | grep 'both modified:' | sed 's/^.*both modified: *//g'"
+
+#git completion
+if [ -f ~/.git-completion.bash ]; then
+    . ~/.git-completion.bash
+fi
 
 gsb() {
     git show $(blamecommit $1 $2) $1
@@ -53,13 +72,16 @@ grecent() {
     git show $(git log -1 --pretty=format:"%h" $1) $1
 }
 
+
+#source ~/docker/bin/update-docker-host.sh
+
 # find any non-input or button elements with the 'btn' class
 #grep "class=.*btn[^-].*" *.php | sed '/^.*\(<button\|<input\).*btn[^-].*$/Id'
 
-alias mergebase='git merge-base HEAD master'
+#alias mergebase='git merge-base HEAD master'
 
-alias mergefiles='git status | grep "both modified:" | sed "s/^.*both modified: *//g"'
-alias gmc='vim $(git status | grep "both modified:" | sed "s/^.*both modified: *//g") +Gdiff'
+#alias mergefiles='git status | grep "both modified:" | sed "s/^.*both modified: *//g"'
+#alias gmc='vim $(git status | grep "both modified:" | sed "s/^.*both modified: *//g") +Gdiff'
 
 alias evi='vi ~/.vimrc'
 alias eb='vi ~/.bash_profile'

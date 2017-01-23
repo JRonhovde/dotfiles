@@ -11,6 +11,22 @@
     br = branch
     subsync = submodule foreach git pull origin master
 [core]
-    excludesfile = ~/.gitignore_global
-[include]
-    path = /usr/local/bin/gitconfig_sycamore
+    repositoryformatversion = 0
+    bare = false
+    logallrefupdates = true
+    editor = vim
+[color]
+    diff = auto
+[color "diff"]
+    meta = yellow bold
+    frag = green bold
+    old = red
+    new = cyan
+[branch]
+    autosetupmerge = always
+[push]
+    default = current
+[grep]
+    patternType = perl
+[url "git@github.com:"]
+	insteadOf = https://github.com/

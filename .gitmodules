@@ -55,3 +55,6 @@
 [submodule "vim/bundle/puppet"]
 	path = vim/bundle/puppet
 	url = git@github.com:rodjek/vim-puppet.git
+[submodule "vim/bundle/ack.vim"]
+	path = vim/bundle/ack.vim
+	url = git@github.com:mileszs/ack.vim.git

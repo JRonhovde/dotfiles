@@ -279,6 +279,8 @@ vnoremap <C-r> "hy:,$s#<C-r>h##gc<left><left><left>
 "GREP current word in current file
 command GREP :execute 'vimgrep '.expand('<cword>').' '.expand('%') | :copen | :cc
 
+let g:ackprg = 'ag --nogroup --nocolor --column'
+
 " Always use 'very magic' {
     "nnoremap / /\v
     "vnoremap / /\v

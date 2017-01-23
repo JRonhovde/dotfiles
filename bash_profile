@@ -1,15 +1,12 @@
 # .bash_profile
 
 set -o vi
-# User specific environment and startup programs
 
-source /usr/local/bin/bash_profile_sycamore
-source /home/jronhovde/perl/inc_functions.sh
+# ssh jonron@cdh5-gateway-01
 #PATH=$PATH:$HOME/bin
 #export PATH
 
-for f in ~/scripts/*.sh; do source $f; done
-for b in ~/.bash_profile_*; do source $b; done
+#export GREP_OPTIONS='--color=always'
 
 # navigating common dirs
 alias sec='cd ~/.vim/bundle/vim-se-conventions/'
@@ -17,12 +14,13 @@ alias sec='cd ~/.vim/bundle/vim-se-conventions/'
 
 export GREP_OPTIONS='--color=always'
 
-source ~/gittrello/gittrello.sh
+#source ~/.profile
 
 #force crontab to use vim
 export VISUAL=vim
-export EDITOR=vim
+export EDITOR=/usr/local/bin/vim
 
+export CLICOLOR=1
 
 resetperl(){
     git checkout .
@@ -65,8 +63,11 @@ alias mergefiles='git status | grep "both modified:" | sed "s/^.*both modified: 
 alias gmc='vim $(git status | grep "both modified:" | sed "s/^.*both modified: *//g") +Gdiff'
 
 alias evi='vi ~/.vimrc'
-alias eb='vi ~/.bash_profile*'
-alias ch='ps axu | grep httpd | wc -l'
+alias eb='vi ~/.bash_profile'
+#alias ch='ps axu | grep httpd | wc -l'
 
 set bell-style none
 bind Space:magic-space
+complete -C aws_completer aws
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*

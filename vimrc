@@ -316,7 +316,7 @@ set omnifunc=syntaxcomplete#Complete
 " }
 
 "Closes php, opens JS, closes JS, opens PHP
-nnoremap <leader>js i?><cr><SCRIPT type='text/javascript'><cr><cr></SCRIPT><cr><?<ESC>kki
+"nnoremap <leader>js i?><cr><SCRIPT type='text/javascript'><cr><cr></SCRIPT><cr><?<ESC>kki
 
 " print statements {
     "join print statement
@@ -374,7 +374,7 @@ command -nargs=1 Remove call Remove(<q-args>)
 " }
 
 "MainHeight Div Macro {
-let @m="/\\ctableOGlobal $MainHeight;if($MainHeight) {$height = $MainHeight - 120 .'px';print(\"<DIV style='overflow:auto;height:$height;'>\");o}/table%oif($MainHeight) print(\"</DIV>\");"
+"let @m="/\\ctableOGlobal $MainHeight;if($MainHeight) {$height = $MainHeight - 120 .'px';print(\"<DIV style='overflow:auto;height:$height;'>\");o}/table%oif($MainHeight) print(\"</DIV>\");"
 " }
 
 " paste 0 register 
@@ -390,10 +390,10 @@ vnoremap k gk
 nnoremap <leader>t /\$task == ['"]
 
 "remove whitespace
-command Spaces 1,$s/\s+$//g
+"command Spaces 1,$s/\s+$//g
 
 "Convert tabs to spaces
-command Tabs 1,$s/\t/    /g
+"command Tabs 1,$s/\t/    /g
 
 " case insensitive commands {
 command! Q q
@@ -406,7 +406,7 @@ command! WQ wq
 "hi Comment term=bold ctermfg=Green guifg=#FFFFFF
 
 " force .tab to use php syntax highlighting
-autocmd BufRead,BufNewFile *.tab,*.inc set filetype=php
+"autocmd BufRead,BufNewFile *.tab,*.inc set filetype=php
 
 " disable auto commenting
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o

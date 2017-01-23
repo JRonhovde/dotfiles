@@ -16,8 +16,8 @@ export PATH=$PATH:$GOPATH/bin
 #source ~/.profile
 
 #force crontab to use vim
-export VISUAL=vim
-export EDITOR=/usr/local/bin/vim
+export VISUAL=vi
+export EDITOR=/usr/bin/vi
 
 export CLICOLOR=1
 

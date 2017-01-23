@@ -14,7 +14,7 @@
     repositoryformatversion = 0
     bare = false
     logallrefupdates = true
-    editor = vim
+    editor = vi
 [color]
     diff = auto
 #[color "diff"]

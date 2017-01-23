@@ -16,8 +16,8 @@ export PATH=$PATH:$GOPATH/bin
 #source ~/.profile
 
 #force crontab to use vim
-export VISUAL=vi
-export EDITOR=/usr/bin/vi
+export VISUAL=vim
+export EDITOR=/usr/bin/vim
 
 export CLICOLOR=1
 
@@ -83,8 +83,8 @@ grecent() {
 #alias mergefiles='git status | grep "both modified:" | sed "s/^.*both modified: *//g"'
 #alias gmc='vim $(git status | grep "both modified:" | sed "s/^.*both modified: *//g") +Gdiff'
 
-alias evi='vi ~/.vimrc'
-alias eb='vi ~/.bash_profile'
+alias evi='vim ~/.vimrc'
+alias eb='vim ~/.bash_profile'
 #alias ch='ps axu | grep httpd | wc -l'
 
 set bell-style none

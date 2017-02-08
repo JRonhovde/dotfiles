@@ -49,9 +49,6 @@
 [submodule "vim/bundle/vim-go"]
 	path = vim/bundle/vim-go
 	url = git@github.com:fatih/vim-go.git
-[submodule "vim/bundle/Dockerfile"]
-	path = vim/bundle/Dockerfile
-	url = git@github.com:ekalinin/Dockerfile.vim.git
 [submodule "vim/bundle/puppet"]
 	path = vim/bundle/puppet
 	url = git@github.com:rodjek/vim-puppet.git
@@ -61,3 +58,6 @@
 [submodule "vim/bundle/tender"]
 	path = vim/bundle/tender
 	url = git@github.com:jacoborus/tender.vim
+[submodule "vim/bundle/vim-jinja2-syntax"]
+	path = vim/bundle/vim-jinja2-syntax
+	url = git@github.com:Glench/Vim-Jinja2-Syntax.git

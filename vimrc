@@ -37,6 +37,8 @@ nnoremap <leader>br :s/;\=$//<cr>:startinsert!<cr>."<BR>";<esc>
 nnoremap <leader>bo :BufOnly<cr>
 
 " 'set' block {
+    "set noeol
+    set backspace=indent,start
     set nohlsearch
     set tabstop=4
     set shiftwidth=4
@@ -56,6 +58,7 @@ nnoremap <leader>bo :BufOnly<cr>
     " jump to entries while typing search parameters
     set incsearch 
     set fdo-=search
+    "set nofixeol
 " }
 
 "" Colorschemes {

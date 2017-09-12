@@ -19,20 +19,23 @@ export PATH=$PATH:$GOPATH/bin
 export VISUAL=vim
 export EDITOR=/usr/bin/vim
 
+source ~/gitcomments/gitcomments.sh
+
 export CLICOLOR=1
 
-export LGEN=$GOPATH/src/github.com/AtScaleInc/licensegenerator
+export GOAT=$GOPATH/src/github.com/AtScaleInc/
+export AS_SUDO=$HOME/dev-vm/puppet/modules/atscale_sudoless
 
 #alias makecentos='cd ~/docker/dev-vm/ && make OS=centos6 PORTS_POSTGRESQL=6432 ATSCALE_SKIP=true run'
 #alias makecentosd='cd ~/docker/dev-vm/ && make OS=centos6 ATSCALE_FROM_MOUNT=true DAEMON=true up'
 #alias makecentosd02='cd ~/docker/dev-vm/ && make OS=centos6 ATSCALE_FROM_MOUNT=true DAEMON=true up-02'
 function makecentosd() { 
-    cd ~/docker/dev-vm/ && make OS=centos6 ATSCALE_FROM_MOUNT=true DAEMON=true up-$1 
+    cd ~/docker/dev-vm/ && make OS=centos6 ATSCALE_FROM_MOUNT=true DAEMON=true $1 
 }
 
-alias build_installer='cd ~/dev-vm && rm -rf ~/dev-vm/.bundle && ./bin/build.sh -e none -o centos6 --dev && mv ~/dev-vm/atscale-* ~/docker/dev-vm/mount/'
-alias build_installer_run='cd ~/dev-vm && rm -rf ~/dev-vm/.bundle && ./bin/build.sh -e none -o centos6 --dev && mv ~/dev-vm/atscale-* ~/docker/dev-vm/mount/ && cd ~/docker/dev-vm/ && makecentosd 01'
+alias build_installer_run='cd ~/dev-vm && ./bin/build.sh -e none -o centos6 --dev && mv ~/dev-vm/atscale-*.tar.gz ~/docker/dev-vm/mount/ && cd ~/docker/dev-vm/ && makecentosd'
 
+alias build_installer='cd ~/dev-vm && ./bin/build.sh -e none -o centos6 --dev && mv ~/dev-vm/atscale-*.tar.gz ~/docker/dev-vm/mount/'
 
 # Trim trailing whitespaces
 trim(){
@@ -47,7 +50,11 @@ source ~/.git-prompt.sh
 if [ $(id -u) -eq 0 ]; then
     PS1="\\[$(tput setaf 1)\\]\\u@\\h:\\w #\\[$(tput sgr0)\\]"
 else
-    PS1='\[$(tput setaf 48)\][\u@\h \W]\[\e[0m\]$ '
+    if [[ $(uname -n) == "Jons-MacBook-Pro.local" ]]; then
+        PS1='\[$(tput setaf 48)\][\u@\h \W]\[\e[0m\]$ '
+    else
+        PS1='\[$(tput setaf 196)\][\u@\h \W]\[\e[0m\]$ '
+    fi
     #PS1='\[$(tput setaf 48)\][\u@\h \W]\[\e[0m\]$(__git_ps1)$ '
 fi
 
@@ -86,6 +93,8 @@ grecent() {
 alias evi='vim ~/.vimrc'
 alias eb='vim ~/.bash_profile'
 #alias ch='ps axu | grep httpd | wc -l'
+
+alias rg='rg -S'
 
 set bell-style none
 bind Space:magic-space

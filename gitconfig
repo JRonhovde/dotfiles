@@ -3,13 +3,14 @@
 	name = JRonhovde
 [alias]
     co = checkout
-    conflict = "!f() { git status | grep 'both modified:' | sed 's/^.*both modified: *//g'; }; f"
+    conflict = "!f() { git status | grep '\\(modified\\|added\\|deleted\\).*:' | sed -E 's/^.*(deleted|modified|added).*: *//g'; }; f"
     mergem = "!f() { git merge master || printf '\nConflict files:\n' && git status | grep 'both \\(modified\\|added\\):' | sed 's/^.*both modified|added: *//g'; }; f"
     lg = log --pretty=format:'%C(yellow)%h %ad%Cred%d %Creset%s%Cblue [%cn]' --decorate --date=short
     wipe = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
     ;bclean = "!f() { git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs -r git branch -d; }; f"
     br = branch
     subsync = submodule foreach git pull origin master
+    ;sync = !git checkout master && git pull && git checkout - && git rebase master
 [core]
     repositoryformatversion = 0
     bare = false
@@ -28,5 +29,3 @@
     default = current
 [grep]
     patternType = perl
-[url "git@github.com:"]
-	insteadOf = https://github.com/
